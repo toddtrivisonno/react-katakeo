@@ -30,12 +30,12 @@ class Register extends React.Component {
    handleSubmit(event) {
       // console.log(this.state);
       event.preventDefault();
-      Axios.post('http://127.0.0.1:8000/api/login', this.state)
+      Axios.post('http://127.0.0.1:8000/api/register', this.state)
          .then(res => {
            this.setState({token: res.data.token});
            localStorage.setItem('token', res.data.token);
-            // console.log(this.state);
-            this.props.tokenFunction(this.state.token);
+           this.props.tokenFunction(res.data.token);
+           this.props.changeRegister();
          })
    }
 

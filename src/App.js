@@ -57,7 +57,7 @@ export default class PersonList extends React.Component {
     return this.state.register ? (
       <div>
         <h1 className="display-4 text-center pt-4 mt-3" id="title">KATAKEO</h1>
-        <Register />
+        <Register tokenFunction={this.getTokenFromChild} changeRegister={this.setRegister} />
       </div>
     )
       : !this.state.token ? (
