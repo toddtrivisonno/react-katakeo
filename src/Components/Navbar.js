@@ -11,7 +11,8 @@ class Navbar extends React.Component {
 
 
    logout() {
-      console.log('logout pressed')
+      // console.log('logout pressed');
+      // console.log(this.props.dataStore);
       const config = {
          headers: { 'Authorization': "Bearer " + this.props.token }
       };
@@ -19,7 +20,9 @@ class Navbar extends React.Component {
          .then(res => {
 
             localStorage.removeItem('token');
-            this.props.tokenFunction("");
+            localStorage.removeItem('data');
+            // this.props.tokenFunction("");
+            this.props.dataStore({});
          })
    }
 
@@ -28,13 +31,14 @@ class Navbar extends React.Component {
    render() {
 
       return (
-         <div>
             <nav className="navbar bg-white" id="navbar">
                <h4 id="title">KATAKEO</h4>
-               <button className="btn btn-info" onClick={this.props.setRegister}>Sign Up</button>
-               <button className="btn btn-secondary" onClick={this.logout} name="logout">Log Out</button>
+               {
+                  this.props.token
+                     ? (<button className="btn btn-secondary" onClick={this.logout} name="logout">Log Out</button>)
+                     : (<button className="btn btn-info" onClick={this.props.setRegister}> {this.props.register ? "Log In" : "Sign Up"} </button>)
+               }
             </nav>
-         </div>
       )
    }
 }

@@ -34,7 +34,9 @@ class Register extends React.Component {
          .then(res => {
            this.setState({token: res.data.token});
            localStorage.setItem('token', res.data.token);
+           localStorage.setItem('data', JSON.stringify(res.data));
            this.props.tokenFunction(res.data.token);
+           this.props.dataStore(res.data);
            this.props.changeRegister();
          })
    }
