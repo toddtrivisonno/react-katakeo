@@ -35,6 +35,7 @@ class Login extends React.Component {
 
             this.props.tokenFunction(res.data.token);
 
+            this.setState({ data: res.data});
             console.log(res.data);
             localStorage.setItem('data', JSON.stringify(res.data));
             this.props.dataStore(res.data);
@@ -43,6 +44,9 @@ class Login extends React.Component {
 
    render() {
       return (
+         <>
+         <h1 className="display-4 text-center pt-4 mt-3" id="title">KATAKEO</h1>
+
          <div className="p-4" id="hero-text">
             <h1 className="pb-4 text-center">Log In</h1>
             <form className="form-signin" onSubmit={this.handleSubmit}>
@@ -59,6 +63,7 @@ class Login extends React.Component {
                <p className="mt-4 mb-3 text-center">Forgot your password?</p>
             </form>
          </div>
+         </>
       )
    }
 }

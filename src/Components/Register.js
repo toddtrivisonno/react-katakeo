@@ -46,6 +46,8 @@ class Register extends React.Component {
 
             <React.Fragment>
                {/* <img src={"./cyclist-landscape.jpg"} id="hero-image" alt="deal with it" /> */}
+               <h1 className="display-4 text-center pt-4 mt-3" id="title">KATAKEO</h1>
+
                <div className="p-4" id="hero-text">
                   <h1 className="pb-4 text-center">Sign Up</h1>
                   <form className="form-signin" onSubmit={this.handleSubmit}>
