@@ -1,6 +1,5 @@
 
 import React from 'react';
-// import './Login.css';
 import Axios from 'axios';
 
 class Register extends React.Component {
@@ -21,14 +20,12 @@ class Register extends React.Component {
       const value = target.value;
       const name = target.name;
       
-      // console.log(this.state);
       this.setState({
          [name]: value
       });
    }
 
    handleSubmit(event) {
-      // console.log(this.state);
       event.preventDefault();
       Axios.post('http://127.0.0.1:8000/api/register', this.state)
          .then(res => {
@@ -45,7 +42,6 @@ class Register extends React.Component {
       return (
 
             <React.Fragment>
-               {/* <img src={"./cyclist-landscape.jpg"} id="hero-image" alt="deal with it" /> */}
                <h1 className="display-4 text-center pt-4 mt-3" id="title">KATAKEO</h1>
 
                <div className="p-4" id="hero-text">

@@ -1,4 +1,5 @@
 import React from 'react';
+// import './ChallengeMenu.css';
 // import Axios from 'axios';
 
 
@@ -7,44 +8,51 @@ class ChallengeMenu extends React.Component {
    //    super(props);
 
    // }
-
-
+   
    render() {
-      console.log(this.props.fullContent);
-      const fullContent = Object.keys(this.props.data.fullContent);
-
-
+      
+      const this_ = this;
       function challengesList(category) {
          return category.map((challenge, index) => {
-
             return (
-               <li key={index} className="list-group-item list-group-item-action list-group-item-info">{challenge.challenge_name}</li>
+               <li key={index} className="list-group-item list-group-item-action list-group-item-info">
+                  <button id={challenge.id} name={challenge.challenge_name} onClick={this_.props.getSelectedChallenge}>
+                     {challenge.challenge_name}
+                  </button>
+               </li>
             )
          });
       }
 
+      function categoryList(fullContent) {
 
-      const categoryList = fullContent.map((category, index) => {
-
-         return (
-
-            <li key={index} className="list-group-item list-group-item-action list-group-item-info">
-               <ul className="list-group list-group-flush text-center">
-                  {category}
-                  {challengesList(this.props.data.fullContent[category])}
-               </ul>
-            </li>
-
-         )
-
-      });
+         return fullContent.map((category, index) => {
+            return (
+               <div className="card bg-info text-center" key={index}>
+                  <div className="card-header" id={'heading' + index}>
+                     <h5 className="m-2">
+                        <button className="btn text-white btn-lg btn-block" type="button" data-toggle="collapse" data-target={'#collapse' + index} aria-expanded="true" aria-controls={'collapse' + index}>
+                           {category}
+                        </button>
+                     </h5>
+                  </div>
+                  <div id={'collapse' + index} className="collapse" aria-labelledby={'heading' + index} data-parent="#accordionExample">
+                     <div className="card-body">
+                        <ul className="list-group list-group-flush text-center" >
+                           {challengesList(this_.props.fullContent[category])}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            )
+         });
+      }
 
       return (
-         <ul className="list-group list-group-flush text-center" >
-            {(this.props.data) ? categoryList : (<h1>Loading</h1>)}
-         </ul >
+         <div className="accordion" id="accordionExample">
+            {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
+         </div>
       )
-
    }
 }
 

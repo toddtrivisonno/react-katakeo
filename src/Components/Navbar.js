@@ -8,11 +8,7 @@ class Navbar extends React.Component {
       this.logout = this.logout.bind(this);
    }
 
-
-
    logout() {
-      // console.log('logout pressed');
-      // console.log(this.props.dataStore);
       const config = {
          headers: { 'Authorization': "Bearer " + this.props.token }
       };
@@ -21,18 +17,16 @@ class Navbar extends React.Component {
 
             localStorage.removeItem('token');
             localStorage.removeItem('data');
-            // this.props.tokenFunction("");
             this.props.dataStore({});
          })
    }
-
 
    // --- Create Navigation bar with nav buttons --- //
    render() {
 
       return (
             <nav className="navbar bg-white" id="navbar">
-               <h4 id="title">KATAKEO</h4>
+               <h4 id="title" className="m-0">KATAKEO</h4>
                {
                   this.props.token
                      ? (<button className="btn btn-secondary" onClick={this.logout} name="logout">Log Out</button>)
