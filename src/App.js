@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Login from './Components/Login';
+import Modal from './Components/Modal';
 // import Navbar from './Components/Navbar';
 // import Register from './Components/Register';
 import Game from './Components/Game';
@@ -9,6 +9,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../node_modules/jquery/dist/jquery.min.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Axios from 'axios';
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faLock, faEnvelope, faUser)
 
 
 export default class App extends React.Component {
@@ -55,14 +60,11 @@ export default class App extends React.Component {
     this.setState({ 'token': token });
   }
 
-  getSelectedChallenge(challenge) {
-    const target = challenge.target;
-    const challengeId = target.id;
-    const name = target.name;
-    console.log(name);
+  getSelectedChallenge(event) {
     this.setState({
-       selectedChallenge: challengeId,
-       challengeName: [name]
+      categoryName: event.target.name,
+      selectedChallenge: event.target.id
+
     })
   }
 
@@ -78,20 +80,11 @@ export default class App extends React.Component {
 
 
   render() {
-    console.log(this.state)
-    // if(this.state.challengeName !== '') {
-    //   var b = this.state.fullContent[this.state.challengeName];
-    //   console.log(b[0].id);
-    // }
-    //console.log(this.state);
-    
-    // console.log(this.state.register);
-    // console.log(this.state.play);
-    // console.log(this.state.modal);
+
     return (
-      <>
-        <div>
-          {/* <Navbar
+
+      <div>
+        {/* <Navbar
             setRegister={this.setRegister}
             register={this.state.register}
             dataStore={this.dataStore}
@@ -99,43 +92,67 @@ export default class App extends React.Component {
 
           /> */}
 
+        {this.state.play ? (
+          this.state.fullContent ?
+            <>
+              <h1 className="text-center text-muted m-0 bg-white">Select a Challenge</h1>
+              <ChallengeMenu
+                data={this.state.data}
+                fullContent={this.state.fullContent}
+                getSelectedChallenge={this.getSelectedChallenge}
+              />
+              <Game
+                categoryName={this.state.categoryName}
+                selectedChallenge={this.state.selectedChallenge}
+                fullContent={this.state.fullContent}
 
+              />
+            </>
+            : null
+        ) : (
+            <>
+              <h1
+                className="display-4 text-center pt-4 mt-5"
+                id="title"
+              >
+                KATAKEO
+              </h1>
+              <div className="container">
+                <div className="row vh-100">
+                  <div className="col my-auto">
+                    {this.state.modal ?
+                      <Modal
+                        visibility={this.state.modal}
+                        changeModal={this.setModal}
+                        dataStore={this.dataStore}
+                        playGame={this.playSelected}
+                      />
+                      :
+                      <>
+                        <button
+                          type="button"
+                          onClick={this.setModal}
+                          className="btn btn-info btn-lg d-block m-5 mx-auto"
+                        >
+                          Sign In - Register
+                  </button>
+                        <button
+                          type="button"
+                          onClick={this.playSelected}
+                          className="btn btn-info btn-lg d-block m-5 mx-auto"
+                        >
+                          Continue as Guest
+                  </button>
+                      </>
+                    }
 
-
-          {this.state.play ? (
-            this.state.fullContent ?
-              <>
-                <ChallengeMenu fullContent={this.state.fullContent} getSelectedChallenge={this.getSelectedChallenge} />
-                <Game selectedChallenge={this.state.selectedChallenge} fullContent={this.state.fullContent} />
-              </>
-              : null
-          ) : (
-              <>
-                <h1 className="display-4 text-center pt-4 mt-5" id="title">KATAKEO</h1>
-                <div className="container">
-                  <div className="row vh-100">
-                    <div className="col my-auto">
-                      <button type="button" onClick={this.setModal} className="btn btn-info btn-lg d-block m-5 mx-auto">Log In - Sign Up</button>
-
-                      <Login visibility={this.state.modal} changeModal={this.setModal} />
-
-                      <button type="button" onClick={this.playSelected} className="btn btn-info btn-lg d-block m-5 mx-auto">Continue as Guest</button>
-                    </div>
                   </div>
                 </div>
-              </>
-            )
-          }
-
-          {/* {this.state.register ? (
-            <Register tokenFunction={this.getTokenFromChild} changeRegister={this.setRegister} dataStore={this.dataStore} />
-          ) : !this.state.data.token ? (
-            <Login dataStore={this.dataStore} tokenFunction={this.getTokenFromChild} />
-          ) : (<ChallengeMenu data={this.state.data} />)} */}
-        </div>
-
-
-      </>
+              </div>
+            </>
+          )
+        }
+      </div>
     )
   }
 }

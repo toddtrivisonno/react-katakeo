@@ -1,22 +1,24 @@
 import React from 'react';
 // import './ChallengeMenu.css';
-// import Axios from 'axios';
-
 
 class ChallengeMenu extends React.Component {
    // constructor(props) {
    //    super(props);
-
    // }
-   
+
    render() {
       
       const this_ = this;
-      function challengesList(category) {
+      function challengesList(category,name) {
+         // console.log(name);
          return category.map((challenge, index) => {
             return (
                <li key={index} className="list-group-item list-group-item-action list-group-item-info">
-                  <button id={challenge.id} name={challenge.challenge_name} onClick={this_.props.getSelectedChallenge}>
+                  <button 
+                  id={index} 
+                  name={name} 
+                  onClick={this_.props.getSelectedChallenge}
+                  >
                      {challenge.challenge_name}
                   </button>
                </li>
@@ -39,7 +41,7 @@ class ChallengeMenu extends React.Component {
                   <div id={'collapse' + index} className="collapse" aria-labelledby={'heading' + index} data-parent="#accordionExample">
                      <div className="card-body">
                         <ul className="list-group list-group-flush text-center" >
-                           {challengesList(this_.props.fullContent[category])}
+                           {challengesList(this_.props.fullContent[category],category)}
                         </ul>
                      </div>
                   </div>
@@ -47,7 +49,6 @@ class ChallengeMenu extends React.Component {
             )
          });
       }
-
       return (
          <div className="accordion" id="accordionExample">
             {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
