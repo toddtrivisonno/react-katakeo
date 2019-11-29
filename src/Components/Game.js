@@ -7,7 +7,7 @@ class Game extends React.Component {
       super(props);
 
       this.splitString = this.splitString.bind(this);
-
+      this.checkAnswer = this.checkAnswer.bind(this);
    }
 
    splitString() {
@@ -29,13 +29,24 @@ class Game extends React.Component {
             // console.log(removedPetitionWords);
          }
 
+         let dropdownWord = removedPetitionWords.map((button, idx) =>
+            <option key={idx} >{splitPetition[button]}</option>
+         )
+
+         console.log(dropdownWord);
+
          let printRedactedPetition = [];
          for (let i = 0; i < splitPetition.length; i++) {
             if (removedPetitionWords.includes(i)) {
-               // console.log('_______');
-               printRedactedPetition.push('______ ')
+               printRedactedPetition.push(
+                  <>
+                     <select className="form-control form-control-sm p-0 mr-1 d-inline w-auto">
+                        <option selected>______</option>
+                        {dropdownWord}
+                     </select>
+                  </>
+               )
             } else {
-               // console.log(splitPetition[i]);
                printRedactedPetition.push(splitPetition[i] + ' ')
             }
          }
@@ -54,9 +65,12 @@ class Game extends React.Component {
          let easyAnswer = Math.round(splitAnswer.length / 4)
          // console.log(easyAnswer)
       }
-
-
    }
+
+checkAnswer () {
+
+}
+
 
 
    render() {
@@ -89,6 +103,9 @@ class Game extends React.Component {
                   <div className="p-2">
                      {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer}
                      {/* {this.splitString()} */}
+                  </div>
+                  <div className="text-center pb-2">
+                     <button className="btn btn-outline-info" type="submit" value="Submit">Submit</button>
                   </div>
                </>
             ) : null}
