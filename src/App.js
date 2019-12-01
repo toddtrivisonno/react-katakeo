@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Modal from './Components/Modal';
-// import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar';
 // import Register from './Components/Register';
 import Game from './Components/Game';
 import ChallengeMenu from './Components/ChallengeMenu';
@@ -84,18 +84,19 @@ export default class App extends React.Component {
     return (
 
       <div>
-        {/* <Navbar
-            setRegister={this.setRegister}
-            register={this.state.register}
-            dataStore={this.dataStore}
-            token={this.state.token}
-
-          /> */}
 
         {this.state.play ? (
           this.state.fullContent ?
             <>
-              <h1 className="text-center text-muted m-0 bg-white">Select a Challenge</h1>
+              <Navbar
+                setRegister={this.setRegister}
+                register={this.state.register}
+                dataStore={this.dataStore}
+                data={this.state.data}
+                fullContent={this.state.fullContent}
+                showModal={this.state.modal}
+              />
+              <h1 className="text-center text-white m-0 bg-secondary">Select a Challenge</h1>
               <ChallengeMenu
                 data={this.state.data}
                 fullContent={this.state.fullContent}

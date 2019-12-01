@@ -71,7 +71,10 @@ class Modal extends React.Component {
    }
    render() {
       return (
-         <div className={this.props.visibility ? 'modal fade show' : 'modal'} style={this.props.visibility ? ({ display: "block" }) : ({ display: "none" })} tabIndex="-1" role="dialog">
+         <div
+            className={this.props.visibility ? 'modal fade show' : 'modal'}
+            style={this.props.visibility ? ({ display: "block" }) : ({ display: "none" })} tabIndex="-1" role="dialog"
+         >
             <div className="modal-dialog modal-dialog-centered" role="document">
                <div className="modal-content">
                   <div className="modal-header">
@@ -103,20 +106,42 @@ class Modal extends React.Component {
                            </div>
                         ) : null}
                         <div className="pb-3 d-flex">
-                           <FontAwesomeIcon icon="envelope" className="m-2" size="lg" color="gray" />
+                           <FontAwesomeIcon
+                              icon="envelope" className="m-2" size="lg" color="gray"
+                           />
                            <label htmlFor="inputEmail" className="sr-only">Your Email</label>
-                           <input type="email" id="inputEmail" className="form-control" placeholder="Your Email" name="email" value={this.state.email} onChange={this.handleChange} />
+                           <input
+                              type="email"
+                              id="inputEmail"
+                              className="form-control"
+                              placeholder="Your Email"
+                              name="email"
+                              value={this.state.email}
+                              onChange={this.handleChange} />
                         </div>
                         <div className="pb-3 d-flex">
-                           <FontAwesomeIcon icon="lock" className="m-2" size="lg" color="gray" />
+                           <FontAwesomeIcon
+                              icon="lock" className="m-2" size="lg" color="gray"
+                           />
                            <label htmlFor="inputPassword" className="sr-only">Password</label>
-                           <input type="password" id="inputPassword" className="form-control" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} ></input>
+                           <input
+                              type="password"
+                              id="inputPassword"
+                              className="form-control"
+                              placeholder="Password"
+                              name="password"
+                              value={this.state.password}
+                              onChange={this.handleChange} />
                         </div>
-                        <button className="btn btn-lg btn-block btn-info" name="submit" type="submit" onSubmit={this.handleSubmit} >
+                        <button
+                           className="btn btn-lg btn-block btn-info"
+                           name="submit"
+                           type="submit"
+                           onSubmit={this.handleSubmit}
+                        >
                            {this.state.register ? "Register" : "Sign In"}
                         </button>
                      </form>
-
                   </div>
                   <div className="modal-footer">
                      <button
@@ -127,7 +152,14 @@ class Modal extends React.Component {
 
                         {!this.state.register ? "Register" : "Sign In"}
                      </button>
-                     <button type="button" onClick={this.props.changeModal} className="btn btn-secondary" data-dismiss="modal">Close</button>
+                     <button
+                        type="button"
+                        onClick={this.props.changeModal}
+                        className="btn btn-secondary"
+                        data-dismiss="modal"
+                     >
+                        Close
+                     </button>
                   </div>
                </div>
             </div>

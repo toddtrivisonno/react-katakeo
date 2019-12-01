@@ -7,11 +7,3 @@ body {
    height: 100vh;
  }
 
- #hero-text {
-   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   color: white;
- }

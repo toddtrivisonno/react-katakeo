@@ -12,8 +12,8 @@ class Game extends React.Component {
 
    splitString() {
       let petition = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.petition;
-      let statement = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.statement;
-      let answer = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer;
+      // let statement = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.statement;
+      // let answer = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer;
 
       if (petition) {
          let splitPetition = petition.split(" ");
@@ -33,14 +33,14 @@ class Game extends React.Component {
             <option key={idx} >{splitPetition[button]}</option>
          )
 
-         console.log(dropdownWord);
-
          let printRedactedPetition = [];
          for (let i = 0; i < splitPetition.length; i++) {
             if (removedPetitionWords.includes(i)) {
                printRedactedPetition.push(
                   <>
-                     <select className="form-control form-control-sm p-0 mr-1 d-inline w-auto">
+                     <select 
+                        className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
+                        >
                         <option selected>______</option>
                         {dropdownWord}
                      </select>
@@ -54,20 +54,20 @@ class Game extends React.Component {
 
       }
 
-      if (statement) {
-         let splitStatement = statement.split(" ");
-         let easyStatement = Math.round(splitStatement.length / 4)
-      }
+      // if (statement) {
+      //    let splitStatement = statement.split(" ");
+      //    let easyStatement = Math.round(splitStatement.length / 4)
+      // }
 
-      if (answer) {
-         let splitAnswer = answer.split(" ");
-         // console.log(splitAnswer)
-         let easyAnswer = Math.round(splitAnswer.length / 4)
-         // console.log(easyAnswer)
-      }
+      // if (answer) {
+      //    let splitAnswer = answer.split(" ");
+      //    console.log(splitAnswer)
+      //    let easyAnswer = Math.round(splitAnswer.length / 4)
+      //    console.log(easyAnswer)
+      // }
    }
 
-checkAnswer () {
+checkAnswer (event) {
 
 }
 
@@ -105,7 +105,7 @@ checkAnswer () {
                      {/* {this.splitString()} */}
                   </div>
                   <div className="text-center pb-2">
-                     <button className="btn btn-outline-info" type="submit" value="Submit">Submit</button>
+                     <button className="btn btn-outline-info" onClick={this.checkAnswer} type="submit" value="Submit">Submit</button>
                   </div>
                </>
             ) : null}
