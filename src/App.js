@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Modal from './Components/Modal';
+// import WinModal from './Components/WinModal';
 import Navbar from './Components/Navbar';
 // import Register from './Components/Register';
 import Game from './Components/Game';
@@ -118,6 +119,7 @@ export default class App extends React.Component {
               >
                 KATAKEO
               </h1>
+              {/* <WinModal /> */}
               <div className="container">
                 <div className="row vh-100">
                   <div className="col my-auto">
