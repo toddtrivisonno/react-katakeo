@@ -12,9 +12,9 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faEnvelope, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faLock, faEnvelope, faUser)
+library.add(faLock, faEnvelope, faUser, faArrowLeft)
 
 
 export default class App extends React.Component {
@@ -40,6 +40,7 @@ export default class App extends React.Component {
     this.setModal = this.setModal.bind(this);
     this.winLoseModal = this.winLoseModal.bind(this);
     this.getSelectedChallenge = this.getSelectedChallenge.bind(this);
+    this.nullSelectedChallenge = this.nullSelectedChallenge.bind(this);
   }
 
   setModal() {
@@ -71,8 +72,15 @@ export default class App extends React.Component {
     })
   }
 
+  nullSelectedChallenge(event) {
+    this.setState({
+      categoryName: '',
+      selectedChallenge: ''
+    })
+  }
+
   winLoseModal() {
-    this.setState({ winModal: !this.state.winModal})
+    this.setState({ winModal: !this.state.winModal })
   }
 
   componentDidMount() {
@@ -80,15 +88,17 @@ export default class App extends React.Component {
       Axios.get('http://127.0.0.1:8000/api/getFullContent')
         .then(res => {
           localStorage.setItem('fullContent', JSON.stringify(res.data.fullContent));
+          this.setState({ fullContent: res.data.fullContent });
         })
     }
-    this.setState({ fullContent: JSON.parse(localStorage.getItem('fullContent')) });
-  }
+    else {
+      this.setState({ fullContent: JSON.parse(localStorage.getItem('fullContent')) });
+    }
 
+  }
 
   render() {
 
-    // console.log(this.state.winModal);
     return (
       <div>
 
@@ -101,9 +111,10 @@ export default class App extends React.Component {
                 dataStore={this.dataStore}
                 data={this.state.data}
                 fullContent={this.state.fullContent}
-                showModal={this.state.modal}
+                showModal={this.setModal}
+                returnHome={this.playSelected}
               />
-              <h1 className="text-center text-white m-0 bg-secondary">Select a Challenge</h1>
+              <h1 className="text-center text-white m-0 bg-secondary challenge-menu">Select a Challenge</h1>
               <ChallengeMenu
                 data={this.state.data}
                 fullContent={this.state.fullContent}
@@ -114,10 +125,12 @@ export default class App extends React.Component {
                 selectedChallenge={this.state.selectedChallenge}
                 fullContent={this.state.fullContent}
                 checkWin={this.winLoseModal}
+                nullSelectedChallenge={this.nullSelectedChallenge}
               />
-              <WinModal 
-                checkWin={this.state.winModal} 
+              <WinModal
+                checkWin={this.state.winModal}
                 resetModal={this.winLoseModal}
+                nullSelectedChallenge={this.nullSelectedChallenge}
               />
 
             </>
@@ -149,17 +162,16 @@ export default class App extends React.Component {
                           className="btn btn-info btn-lg d-block m-5 mx-auto"
                         >
                           Sign In - Register
-                  </button>
+                        </button>
                         <button
                           type="button"
                           onClick={this.playSelected}
                           className="btn btn-info btn-lg d-block m-5 mx-auto"
                         >
                           Continue as Guest
-                  </button>
+                        </button>
                       </>
                     }
-
                   </div>
                 </div>
               </div>

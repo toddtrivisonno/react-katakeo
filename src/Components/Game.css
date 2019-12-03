@@ -1,6 +1,5 @@
 
 .game-view {
-   /* border: 3px solid blue; */
    height: 100vh;
    width: 100vw;
    position: absolute;
@@ -9,22 +8,35 @@
    left: 100vw;
    overflow: auto;
 
-   -webkit-animation: slide 0.5s forwards;
-   animation: slide 0.5s forwards;
+   -webkit-animation: slideForwards 0.5s forwards;
+   animation: slideForwards 0.5s forwards;
 }
 
-@-webkit-keyframes slide {
+@-webkit-keyframes slideForwards {
    100% { left: 0; }
 }
 
-@keyframes slide {
+@keyframes slideForwards {
    100% { left: 0; }
 }
 
-
-/* html, body {
+/* #emptyGame {
    height: 100vh;
    width: 100vw;
+   position: absolute;
+   z-index: -1;
    top: 0;
-   left: 100
+   left: 100vw;
+   overflow: auto;
+
+   -webkit-animation: slideBackwards 0.5s reverse;
+   animation: slideBackwards 0.5s reverse;
+}
+
+@-webkit-keyframes slideBackwards {
+   100% { left: 0; }
+}
+
+@keyframes slideBackwards {
+   100% { left: 0; }
 } */

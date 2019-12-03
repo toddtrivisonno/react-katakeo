@@ -1,12 +1,11 @@
 import React from 'react';
-// import WinModal from './Components/WinModal';
 import './Game.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Game extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         // value: '',
          petition: '',
          splitPetition: [],
          splitStatement: [],
@@ -35,27 +34,30 @@ class Game extends React.Component {
       this.splitAnswer = this.splitAnswer.bind(this);
    }
 
-   splitter(array, arrayInState, splitWords, removedWordsState) {
-      let splitString = array.split(" ");
-      let easyStr = Math.round(splitString.length / 4)
-
-      let removedWords = [];
-      while (removedWords.length < easyStr) {
-         let random = Math.floor(Math.random() * splitString.length);
-
-         if (!removedWords.includes(random)) {
-            removedWords.push(random)
+   componentDidUpdate() {
+      if (this.props.selectedChallenge !== this.state.currentChallenge) {
+         this.setState({
+            petition: '',
+            splitPetition: [],
+            splitStatement: [],
+            splitAnswer: [],
+            removedPetitionWords: [],
+            removedStatementWords: [],
+            removedAnswerWords: [],
+            printRedactedPetition: [],
+            printRedactedStatement: [],
+            printRedactedAnswer: [],
+            userSelectedWordsPetition: {},
+            userSelectedWordsStatement: {},
+            userSelectedWordsAnswer: {},
+            loaded: false,
+            currentChallenge: ''
+         })
+         if (this.props.fullContent && this.props.selectedChallenge && this.props.categoryName) {
+            this.buildingState();
          }
-         // console.log(removedWords);
       }
-
-      this.setState({
-         [arrayInState]: array,
-         [splitWords]: splitString,
-         [removedWordsState]: removedWords
-      })
    }
-
    buildingState() {
 
       let petition = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.petition;
@@ -78,16 +80,35 @@ class Game extends React.Component {
       });
    }
 
-   componentDidMount() {
+   splitter(array, arrayInState, splitWords, removedWordsState) {
+      let splitString = array.split(" ");
+      let easyStr = Math.round(splitString.length / 4)
 
-   }
+      let removedWords = [];
+      while (removedWords.length < easyStr) {
+         let random = Math.floor(Math.random() * splitString.length);
 
-   componentDidUpdate() {
-      if (this.props.selectedChallenge !== this.state.currentChallenge) {
-         if (this.props.fullContent && this.props.selectedChallenge && this.props.categoryName) {
-            this.buildingState();
+         if (!removedWords.includes(random)) {
+            let breakInLoop = false
+            for (let i = 0; i < removedWords.length; i++) {
+
+               if (splitString[removedWords[i]] === splitString[random]) {
+                  breakInLoop = true;
+                  break
+               }
+            }
+            if (breakInLoop) {
+               continue
+            } else {
+               removedWords.push(random)
+            }
          }
       }
+      this.setState({
+         [arrayInState]: array,
+         [splitWords]: splitString,
+         [removedWordsState]: removedWords
+      })
    }
 
    async handlePetitionChange(e) {
@@ -140,10 +161,7 @@ class Game extends React.Component {
       if (check !== userCheck) {
          fail = true;
       }
-      // console.log(check)
-      // console.log(this.state.userSelectedWordsPetition)
-      // console.log(this.state.userSelectedWordsStatement)
-      // for (let i = 0; i < Object.keys(this.state.userSelectedWordsPetition).length; i++) {
+
       if (fail) {
          return 'fail';
       }
@@ -190,18 +208,18 @@ class Game extends React.Component {
       let printRedactedPetition = [];
       for (let i = 0; i < splitP.length; i++) {
          if (this.state.removedPetitionWords.includes(i)) {
-            // console.log(this.state.userSelectedWords)
             printRedactedPetition.push(
                <select
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handlePetitionChange}
                   value={this.state.userSelectedWordsPetition[i]}
+                  defaultValue="________"
                   id={i}
                >
                   <option
-                     value={'______'}
-                     selected>
-                     ______
+                     value='________'
+                     disabled>
+                     ________
                            </option>
                   {dropdownWord}
                </select>
@@ -221,19 +239,19 @@ class Game extends React.Component {
       let printRedactedStatement = [];
       for (let i = 0; i < splitS.length; i++) {
          if (this.state.removedStatementWords.includes(i)) {
-            // console.log(this.state.userSelectedWordsStatement)
             printRedactedStatement.push(
                <select
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleStatementChange}
+                  defaultValue="________"
                   value={this.state.userSelectedWordsStatement[i]}
                   id={i}
                >
                   <option
-                     value={'______'}
-                     selected>
-                     ______
-                           </option>
+                     value='________'
+                     disabled>
+                     ________
+                  </option>
                   {dropdownWord}
                </select>
             )
@@ -252,18 +270,18 @@ class Game extends React.Component {
       let printRedactedAnswer = [];
       for (let i = 0; i < splitA.length; i++) {
          if (this.state.removedAnswerWords.includes(i)) {
-            // console.log(this.state.userSelectedWordsAnswer)
             printRedactedAnswer.push(
                <select
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleAnswerChange}
                   value={this.state.userSelectedWordsAnswer[i]}
+                  defaultValue="________"
                   id={i}
                >
                   <option
-                     value={'______'}
-                     selected>
-                     ______
+                     value='________'
+                     disabled>
+                     ________
                            </option>
                   {dropdownWord}
                </select>
@@ -289,26 +307,31 @@ class Game extends React.Component {
                      </div>
                   </div>
                   <div className="font-weight-bold p-2">
-                     {/* {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.petition} */}
                      {this.splitPetition()}
                   </div>
                   <div className="font-italic p-2">
                      {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.initial_question}
                   </div>
                   <div className="p-2">
-                     {/* {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.statement} */}
                      {this.splitStatement()}
                   </div>
                   <div className="font-italic p-2">
                      {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.following_question}
                   </div>
                   <div className="p-2">
-                     {/* {this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer} */}
                      {this.splitAnswer()}
                   </div>
                   <div className="text-center pb-2">
                      <button className="btn btn-outline-info" onClick={this.handleSubmit} type="submit" value="Submit">Submit</button>
                   </div>
+                  <br />
+                  <br />
+                  <button
+                     className="m-0 bg-secondary btn fixed-bottom" onClick={this.props.nullSelectedChallenge}>
+                     <FontAwesomeIcon
+                        icon="arrow-left" size="lg" className="m-2" color="white"
+                     />
+                  </button>
                </div>
             ) : null}
          </>

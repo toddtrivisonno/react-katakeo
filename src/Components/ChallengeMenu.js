@@ -44,7 +44,7 @@ class ChallengeMenu extends React.Component {
 
          return fullContent.map((category, index) => {
             return (
-               <div className="card bg-info text-center border-0 rounded-0" key={index} id="challengeMenu">
+               <div className="card bg-info text-center border-0 rounded-0 challenge-menu" key={index} id="challengeMenu">
                   <div className="card-header" id={'heading' + index}>
                      <h5 className="m-2">
                         <button className="btn text-white btn-lg btn-block font-weight-bold" type="button" data-toggle="collapse" data-target={'#collapse' + index} aria-expanded="true" aria-controls={'collapse' + index}>

@@ -3,14 +3,16 @@ import React from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class WinModal extends React.Component {
-   // constructor(props) {
-   //    super(props);
-   //    this.state = {
+   constructor(props) {
+      super(props);
 
-   //    }
-   //    this.handleClick = this.handleClick.bind(this);
+      this.selectNewChallenge = this.selectNewChallenge.bind(this);
+   }
 
-   // }
+   selectNewChallenge() {
+      this.props.resetModal();
+      this.props.nullSelectedChallenge()
+   }
 
    render() {
       return (
@@ -45,7 +47,7 @@ class WinModal extends React.Component {
                      <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={this.props.resetModal}
+                        onClick={this.selectNewChallenge}
                         data-dismiss="modal"
                         aria-label="Close"
                      >
