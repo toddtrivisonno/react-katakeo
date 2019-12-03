@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Modal from './Components/Modal';
-// import WinModal from './Components/WinModal';
+import WinModal from './Components/WinModal';
 import Navbar from './Components/Navbar';
 // import Register from './Components/Register';
 import Game from './Components/Game';
@@ -12,9 +12,9 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faEnvelope, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faLock, faEnvelope, faUser)
+library.add(faLock, faEnvelope, faUser, faArrowLeft)
 
 
 export default class App extends React.Component {
@@ -29,6 +29,7 @@ export default class App extends React.Component {
       data: {},
       play: false,
       modal: false,
+      winModal: false,
       selectedChallenge: '',
       challengeName: ''
     }
@@ -37,7 +38,9 @@ export default class App extends React.Component {
     this.dataStore = this.dataStore.bind(this);
     this.playSelected = this.playSelected.bind(this);
     this.setModal = this.setModal.bind(this);
+    this.winLoseModal = this.winLoseModal.bind(this);
     this.getSelectedChallenge = this.getSelectedChallenge.bind(this);
+    this.nullSelectedChallenge = this.nullSelectedChallenge.bind(this);
   }
 
   setModal() {
@@ -69,21 +72,34 @@ export default class App extends React.Component {
     })
   }
 
+  nullSelectedChallenge(event) {
+    this.setState({
+      categoryName: '',
+      selectedChallenge: ''
+    })
+  }
+
+  winLoseModal() {
+    this.setState({ winModal: !this.state.winModal })
+  }
+
   componentDidMount() {
     if (!localStorage.getItem('fullContent')) {
       Axios.get('http://127.0.0.1:8000/api/getFullContent')
         .then(res => {
           localStorage.setItem('fullContent', JSON.stringify(res.data.fullContent));
+          this.setState({ fullContent: res.data.fullContent });
         })
     }
-    this.setState({ fullContent: JSON.parse(localStorage.getItem('fullContent')) });
-  }
+    else {
+      this.setState({ fullContent: JSON.parse(localStorage.getItem('fullContent')) });
+    }
 
+  }
 
   render() {
 
     return (
-
       <div>
 
         {this.state.play ? (
@@ -95,9 +111,10 @@ export default class App extends React.Component {
                 dataStore={this.dataStore}
                 data={this.state.data}
                 fullContent={this.state.fullContent}
-                showModal={this.state.modal}
+                showModal={this.setModal}
+                returnHome={this.playSelected}
               />
-              <h1 className="text-center text-white m-0 bg-secondary">Select a Challenge</h1>
+              <h1 className="text-center text-white m-0 bg-secondary challenge-menu">Select a Challenge</h1>
               <ChallengeMenu
                 data={this.state.data}
                 fullContent={this.state.fullContent}
@@ -107,8 +124,15 @@ export default class App extends React.Component {
                 categoryName={this.state.categoryName}
                 selectedChallenge={this.state.selectedChallenge}
                 fullContent={this.state.fullContent}
-
+                checkWin={this.winLoseModal}
+                nullSelectedChallenge={this.nullSelectedChallenge}
               />
+              <WinModal
+                checkWin={this.state.winModal}
+                resetModal={this.winLoseModal}
+                nullSelectedChallenge={this.nullSelectedChallenge}
+              />
+
             </>
             : null
         ) : (
@@ -119,7 +143,7 @@ export default class App extends React.Component {
               >
                 KATAKEO
               </h1>
-              {/* <WinModal /> */}
+              <h6 className="text-center">A simple way to teach the household.</h6>
               <div className="container">
                 <div className="row vh-100">
                   <div className="col my-auto">
@@ -138,17 +162,16 @@ export default class App extends React.Component {
                           className="btn btn-info btn-lg d-block m-5 mx-auto"
                         >
                           Sign In - Register
-                  </button>
+                        </button>
                         <button
                           type="button"
                           onClick={this.playSelected}
                           className="btn btn-info btn-lg d-block m-5 mx-auto"
                         >
                           Continue as Guest
-                  </button>
+                        </button>
                       </>
                     }
-
                   </div>
                 </div>
               </div>

@@ -26,7 +26,7 @@ class ChallengeMenu extends React.Component {
                               id="passage"
                               name="quicksearch"
                               placeholder="ex: Ephesians 2:8-10"
-                              // value=""
+                           // value=""
                            />
                            <button id="Search">Search</button>
                         </div>
@@ -44,7 +44,7 @@ class ChallengeMenu extends React.Component {
 
          return fullContent.map((category, index) => {
             return (
-               <div className="card bg-info text-center border-0 rounded-0" key={index} id="challengeMenu">
+               <div className="card bg-info text-center border-0 rounded-0 challenge-menu" key={index} id="challengeMenu">
                   <div className="card-header" id={'heading' + index}>
                      <h5 className="m-2">
                         <button className="btn text-white btn-lg btn-block font-weight-bold" type="button" data-toggle="collapse" data-target={'#collapse' + index} aria-expanded="true" aria-controls={'collapse' + index}>
@@ -64,9 +64,11 @@ class ChallengeMenu extends React.Component {
          });
       }
       return (
-         <div className="accordion" id="accordionExample">
-            {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
-         </div>
+            <div
+               className={this.props.fullContent ? "accordion challenge-view overflow-auto" : "accordion"}
+               id="accordionExample">
+               {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
+            </div>
       )
    }
 }

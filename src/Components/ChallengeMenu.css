@@ -1,13 +1,23 @@
-#challengeMenu {
+
+.challenge-menu {
    background-color: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
    opacity: 0.95;
  }
 
-
-/* html, body {
+.challenge-view {
    height: 100vh;
    width: 100vw;
-   top: 0;
-   left: 0;
-   overflow: hidden
+   z-index: 1;
+   /* overflow: auto; */
+
+   /* -webkit-animation: slide 0.5s alternate;
+   animation: slide 0.5s alternate; */
+}
+
+/* @-webkit-keyframes slide {
+   100% { left: 100vw; }
+}
+
+@keyframes slide {
+   100% { left: 100vw; }
 } */

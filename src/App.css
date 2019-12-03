@@ -1,7 +1,14 @@
+
+body {
+  background-image: url("/Wittenberg_crop.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #cccccc; 
+  height: 100vh;
+  overflow: hidden;
+}
+
 #title {
   font-family: 'Fredericka the Great', cursive;
 }
-
-/* body {
-  background-color: #292b2c;
-} */
