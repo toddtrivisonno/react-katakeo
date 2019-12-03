@@ -1,5 +1,6 @@
 import React from 'react';
-// import './Game.css';
+// import WinModal from './Components/WinModal';
+import './Game.css';
 
 class Game extends React.Component {
    constructor(props) {
@@ -127,34 +128,58 @@ class Game extends React.Component {
 
    handleSubmit(event) {
       event.preventDefault();
-      let count = 0;
+      let fail = false;
       let check =
          Object.keys(this.state.removedPetitionWords).length +
          Object.keys(this.state.removedStatementWords).length +
          Object.keys(this.state.removedAnswerWords).length;
+      let userCheck =
+         Object.keys(this.state.userSelectedWordsPetition).length +
+         Object.keys(this.state.userSelectedWordsStatement).length +
+         Object.keys(this.state.userSelectedWordsAnswer).length;
+      if (check !== userCheck) {
+         fail = true;
+      }
       // console.log(check)
       // console.log(this.state.userSelectedWordsPetition)
       // console.log(this.state.userSelectedWordsStatement)
       // for (let i = 0; i < Object.keys(this.state.userSelectedWordsPetition).length; i++) {
-      for (let i = 0; i < check; i++) {
-         let keysPetition = Object.keys(this.state.userSelectedWordsPetition)
-         let keysStatement = Object.keys(this.state.userSelectedWordsStatement)
-         let keysAnswer = Object.keys(this.state.userSelectedWordsAnswer)
-         if (this.state.splitPetition[keysPetition[i]] === this.state.userSelectedWordsPetition[keysPetition[i]] &&
-            this.state.splitStatement[keysStatement[i]] === this.state.userSelectedWordsStatement[keysStatement[i]] &&
-            this.state.splitAnswer[keysAnswer[i]] === this.state.userSelectedWordsAnswer[keysAnswer[i]]
-            ) {
-            // console.log('so far good')
-            // console.log(count)
-            count++
-            if (count === check) {
-               alert('Winner winner chicken dinner')
+      if (fail) {
+         return 'fail';
+      }
+      else {
+         for (let i = 0; i < Object.keys(this.state.userSelectedWordsPetition).length; i++) {
+            let keysPetition = Object.keys(this.state.userSelectedWordsPetition)
+            if (this.state.splitPetition[keysPetition[i]] !== this.state.userSelectedWordsPetition[keysPetition[i]]) {
+               fail = true;
             }
-         } else {
-            console.log('you are a failure')
+         }
+         if (fail) {
+            return 'fail';
+         }
+         for (let i = 0; i < Object.keys(this.state.userSelectedWordsStatement).length; i++) {
+            let keysStatement = Object.keys(this.state.userSelectedWordsStatement)
+            if (this.state.splitStatement[keysStatement[i]] !== this.state.userSelectedWordsStatement[keysStatement[i]]) {
+               fail = true;
+            }
+         }
+         if (fail) {
+            return 'fail';
+         }
+         for (let i = 0; i < Object.keys(this.state.userSelectedWordsAnswer).length; i++) {
+            let keysAnswer = Object.keys(this.state.userSelectedWordsAnswer)
+            if (this.state.splitAnswer[keysAnswer[i]] !== this.state.userSelectedWordsAnswer[keysAnswer[i]]) {
+               fail = true;
+            }
+         }
+         if (fail) {
+            return 'fail';
+         }
+         else {
+            this.props.checkWin()
+            return 'winner';
          }
       }
-      // console.log(this.state.splitPetition)
    }
 
    splitPetition() {
@@ -254,7 +279,7 @@ class Game extends React.Component {
       return (
          <>
             {this.props.fullContent && this.props.categoryName && this.props.selectedChallenge ? (
-               <>
+               <div className="blue-outline bg-light">
                   <div className="bg-warning text-center p-2">
                      <h3 className="text-muted text-white">{this.props.categoryName}</h3>
                      <div>
@@ -284,9 +309,8 @@ class Game extends React.Component {
                   <div className="text-center pb-2">
                      <button className="btn btn-outline-info" onClick={this.handleSubmit} type="submit" value="Submit">Submit</button>
                   </div>
-               </>
+               </div>
             ) : null}
-
          </>
       )
    }

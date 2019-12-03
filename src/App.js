@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Modal from './Components/Modal';
-// import WinModal from './Components/WinModal';
+import WinModal from './Components/WinModal';
 import Navbar from './Components/Navbar';
 // import Register from './Components/Register';
 import Game from './Components/Game';
@@ -29,6 +29,7 @@ export default class App extends React.Component {
       data: {},
       play: false,
       modal: false,
+      winModal: false,
       selectedChallenge: '',
       challengeName: ''
     }
@@ -37,6 +38,7 @@ export default class App extends React.Component {
     this.dataStore = this.dataStore.bind(this);
     this.playSelected = this.playSelected.bind(this);
     this.setModal = this.setModal.bind(this);
+    this.winLoseModal = this.winLoseModal.bind(this);
     this.getSelectedChallenge = this.getSelectedChallenge.bind(this);
   }
 
@@ -69,6 +71,10 @@ export default class App extends React.Component {
     })
   }
 
+  winLoseModal() {
+    this.setState({ winModal: !this.state.winModal})
+  }
+
   componentDidMount() {
     if (!localStorage.getItem('fullContent')) {
       Axios.get('http://127.0.0.1:8000/api/getFullContent')
@@ -82,8 +88,8 @@ export default class App extends React.Component {
 
   render() {
 
+    // console.log(this.state.winModal);
     return (
-
       <div>
 
         {this.state.play ? (
@@ -107,8 +113,13 @@ export default class App extends React.Component {
                 categoryName={this.state.categoryName}
                 selectedChallenge={this.state.selectedChallenge}
                 fullContent={this.state.fullContent}
-
+                checkWin={this.winLoseModal}
               />
+              <WinModal 
+                checkWin={this.state.winModal} 
+                resetModal={this.winLoseModal}
+              />
+
             </>
             : null
         ) : (
@@ -119,7 +130,7 @@ export default class App extends React.Component {
               >
                 KATAKEO
               </h1>
-              {/* <WinModal /> */}
+              <h6 className="text-center">A simple way to teach the household.</h6>
               <div className="container">
                 <div className="row vh-100">
                   <div className="col my-auto">

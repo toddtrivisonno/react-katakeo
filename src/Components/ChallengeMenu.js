@@ -26,7 +26,7 @@ class ChallengeMenu extends React.Component {
                               id="passage"
                               name="quicksearch"
                               placeholder="ex: Ephesians 2:8-10"
-                              // value=""
+                           // value=""
                            />
                            <button id="Search">Search</button>
                         </div>
@@ -64,9 +64,11 @@ class ChallengeMenu extends React.Component {
          });
       }
       return (
-         <div className="accordion" id="accordionExample">
-            {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
-         </div>
+            <div
+               className={this.props.fullContent ? "accordion red-outline overflow-auto" : "accordion"}
+               id="accordionExample">
+               {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
+            </div>
       )
    }
 }

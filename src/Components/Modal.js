@@ -1,6 +1,5 @@
 
 import React from 'react';
-import './Login.css';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
