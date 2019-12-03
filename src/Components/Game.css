@@ -1,12 +1,13 @@
 
-.blue-outline {
-   border: 3px solid blue;
+.game-view {
+   /* border: 3px solid blue; */
    height: 100vh;
    width: 100vw;
    position: absolute;
    z-index: 2;
    top: 0;
    left: 100vw;
+   overflow: auto;
 
    -webkit-animation: slide 0.5s forwards;
    animation: slide 0.5s forwards;

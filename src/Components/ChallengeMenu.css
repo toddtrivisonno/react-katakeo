@@ -3,12 +3,11 @@
    opacity: 0.95;
  }
 
-.red-outline {
-   border: 3px solid red;
+.challenge-view {
+   /* border: 3px solid red; */
    height: 100vh;
    width: 100vw;
    z-index: 1;
-
 }
 
 /* html, body {

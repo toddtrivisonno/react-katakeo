@@ -279,7 +279,7 @@ class Game extends React.Component {
       return (
          <>
             {this.props.fullContent && this.props.categoryName && this.props.selectedChallenge ? (
-               <div className="blue-outline bg-light">
+               <div className="game-view bg-light">
                   <div className="bg-warning text-center p-2">
                      <h3 className="text-muted text-white">{this.props.categoryName}</h3>
                      <div>

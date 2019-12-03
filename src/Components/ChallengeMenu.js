@@ -65,7 +65,7 @@ class ChallengeMenu extends React.Component {
       }
       return (
             <div
-               className={this.props.fullContent ? "accordion red-outline overflow-auto" : "accordion"}
+               className={this.props.fullContent ? "accordion challenge-view overflow-auto" : "accordion"}
                id="accordionExample">
                {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
             </div>
