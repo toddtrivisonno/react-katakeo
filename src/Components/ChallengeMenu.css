@@ -8,16 +8,4 @@
    height: 100vh;
    width: 100vw;
    z-index: 1;
-   /* overflow: auto; */
-
-   /* -webkit-animation: slide 0.5s alternate;
-   animation: slide 0.5s alternate; */
 }
-
-/* @-webkit-keyframes slide {
-   100% { left: 100vw; }
-}
-
-@keyframes slide {
-   100% { left: 100vw; }
-} */

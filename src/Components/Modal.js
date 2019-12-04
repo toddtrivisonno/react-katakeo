@@ -18,11 +18,13 @@ class Modal extends React.Component {
       this.Login = this.Login.bind(this);
       this.Register = this.Register.bind(this);
    }
+
    handleClick() {
       this.setState({
          register: !this.state.register
       });
    }
+
    handleChange(event) {
       const target = event.target;
       const value = target.value;
@@ -54,6 +56,7 @@ class Modal extends React.Component {
       this.props.playGame();
 
    }
+
    Login(credentials) {
       Axios.post('http://127.0.0.1:8000/api/login', credentials)
          .then(res => {
@@ -61,6 +64,7 @@ class Modal extends React.Component {
             this.props.dataStore(res.data);
          })
    }
+
    Register(credentials) {
       Axios.post('http://127.0.0.1:8000/api/register', credentials)
          .then(res => {
@@ -68,6 +72,7 @@ class Modal extends React.Component {
             this.props.dataStore(res.data);
          })
    }
+
    render() {
       return (
          <div
@@ -85,7 +90,6 @@ class Modal extends React.Component {
                      </button>
                   </div>
                   <div className="modal-body">
-
                      <form className="form-signin" onSubmit={this.handleSubmit}>
                         {this.state.register ? (
                            <div className="pb-3 d-flex">

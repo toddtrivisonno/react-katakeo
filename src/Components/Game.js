@@ -58,8 +58,8 @@ class Game extends React.Component {
          }
       }
    }
-   buildingState() {
 
+   buildingState() {
       let petition = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.petition;
       let statement = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.statement;
       let answer = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer;
@@ -158,12 +158,15 @@ class Game extends React.Component {
          Object.keys(this.state.userSelectedWordsPetition).length +
          Object.keys(this.state.userSelectedWordsStatement).length +
          Object.keys(this.state.userSelectedWordsAnswer).length;
+
       if (check !== userCheck) {
          fail = true;
       }
 
       if (fail) {
-         return 'fail';
+         this.props.checkFail(fail);
+         this.props.showModal(true);
+         return;
       }
       else {
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsPetition).length; i++) {
@@ -173,7 +176,9 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsStatement).length; i++) {
             let keysStatement = Object.keys(this.state.userSelectedWordsStatement)
@@ -182,7 +187,9 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsAnswer).length; i++) {
             let keysAnswer = Object.keys(this.state.userSelectedWordsAnswer)
@@ -191,13 +198,17 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          else {
-            this.props.checkWin()
-            return 'winner';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
       }
+
    }
 
    splitPetition() {
@@ -210,6 +221,7 @@ class Game extends React.Component {
          if (this.state.removedPetitionWords.includes(i)) {
             printRedactedPetition.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handlePetitionChange}
                   value={this.state.userSelectedWordsPetition[i]}
@@ -218,9 +230,10 @@ class Game extends React.Component {
                >
                   <option
                      value='________'
-                     disabled>
+                     disabled
+                  >
                      ________
-                           </option>
+                  </option>
                   {dropdownWord}
                </select>
             )
@@ -241,6 +254,7 @@ class Game extends React.Component {
          if (this.state.removedStatementWords.includes(i)) {
             printRedactedStatement.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleStatementChange}
                   defaultValue="________"
@@ -272,6 +286,7 @@ class Game extends React.Component {
          if (this.state.removedAnswerWords.includes(i)) {
             printRedactedAnswer.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleAnswerChange}
                   value={this.state.userSelectedWordsAnswer[i]}

@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 
-
 class Navbar extends React.Component {
    constructor(props) {
       super(props);
@@ -23,11 +22,10 @@ class Navbar extends React.Component {
 
    signIn() {
       this.props.returnHome();
-      this.props.showModal()
+      this.props.setModal()
    }
 
    render() {
-
       return (
          <nav className="navbar bg-white" id="navbar">
             <h4 id="title" className="m-0">KATAKEO</h4>
@@ -35,11 +33,17 @@ class Navbar extends React.Component {
                this.props.data.token
                   ? (
                      <>
-                        <p>
+                        <img 
+                           src="./LUTH_FLOWER_COLOR_100.png" 
+                           className="mr-2 ml-auto" 
+                           width="25px" 
+                           alt="rose-icon" 
+                        />
+                        <h5 className="mb-0 mr-2 ml-0">
                            {this.props.data
                               ? this.props.data.user.name.split(" ", 1)
                               : ""}
-                        </p>
+                        </h5>
                         <button
                            className="btn btn-secondary"
                            onClick={this.logout}
