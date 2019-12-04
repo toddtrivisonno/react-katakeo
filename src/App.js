@@ -3,7 +3,6 @@ import './App.css';
 import Modal from './Components/Modal';
 import WinModal from './Components/WinModal';
 import Navbar from './Components/Navbar';
-// import Register from './Components/Register';
 import Game from './Components/Game';
 import ChallengeMenu from './Components/ChallengeMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,11 +10,9 @@ import "../node_modules/jquery/dist/jquery.min.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faLock, faEnvelope, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faLock, faEnvelope, faUser, faArrowLeft)
-
 
 export default class App extends React.Component {
 
@@ -84,7 +81,7 @@ export default class App extends React.Component {
   showModal(modalStatus) {
     this.setState({ winModal: modalStatus })
   }
-  
+
   checkFail(failStatus) {
     this.setState({ fail: failStatus })
     // this.setState({ winModal: !this.state.winModal })
@@ -105,8 +102,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log('app.js: ',this.state.fail)
-    console.log('app.js: ',this.state.winModal)
+    console.log('app.js: ', this.state.fail)
+    console.log('app.js: ', this.state.winModal)
     return (
       <div>
 
@@ -156,7 +153,7 @@ export default class App extends React.Component {
               </h1>
               <h6 className="text-center mb-4 pb-5">A simple way to teach the household.</h6>
               <div className="container">
-                <div className="row vh-100 pt-5">
+                <div className="row vh-100">
                   <div className="col my-auto p-0">
                     {this.state.modal ?
                       <Modal
@@ -167,6 +164,19 @@ export default class App extends React.Component {
                       />
                       :
                       <>
+                        <h5 
+                          className="d-block btn btn-lg" 
+                          data-container="body" 
+                          data-toggle="popover" 
+                          data-placement="top" 
+                          data-content='Katakeo comes from the Greek word for “instruction.”
+
+                          The basis of Katakeo is Martin Luther’s Small Catechism, an instruction booklet written to assist parents in teaching their households the core teachings of the Bible and Christian faith.
+                          
+                          Katekeo is a tool to assist and encourage Christians in learning and memorizing these teachings!'
+                        >
+                            What is Katakeo?
+                        </h5>
                         <button
                           type="button"
                           id="title-button-top"
@@ -179,7 +189,7 @@ export default class App extends React.Component {
                           type="button"
                           id="title-button-bottom"
                           onClick={this.playSelected}
-                          className="btn btn-info btn-lg btn-block d-block p-2 mx-auto rounded-0 font-weight-bold"
+                          className="btn btn-info btn-lg btn-block d-block p-2 mx-auto rounded-0 font-weight-bold mb-5"
                         >
                           Continue as Guest
                         </button>

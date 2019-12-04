@@ -35,7 +35,8 @@ class Navbar extends React.Component {
                this.props.data.token
                   ? (
                      <>
-                        <h5 className="mb-0 mr-2 ml-auto">
+                        <img src="./LUTH_FLOWER_COLOR_100.png" className="mr-2 ml-auto" width="25px" alt="hammer-icon" />
+                        <h5 className="mb-0 mr-2 ml-0">
                            {this.props.data
                               ? this.props.data.user.name.split(" ", 1)
                               : ""}
