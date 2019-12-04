@@ -58,7 +58,7 @@ class Modal extends React.Component {
    }
 
    Login(credentials) {
-      Axios.post('http://127.0.0.1:8000/api/login', credentials)
+      Axios.post('https://katakeo.appspot.com/api/login', credentials)
          .then(res => {
             localStorage.setItem('data', JSON.stringify(res.data));
             this.props.dataStore(res.data);
@@ -66,7 +66,7 @@ class Modal extends React.Component {
    }
 
    Register(credentials) {
-      Axios.post('http://127.0.0.1:8000/api/register', credentials)
+      Axios.post('https://katakeo.appspot.com/api/register', credentials)
          .then(res => {
             localStorage.setItem('data', JSON.stringify(res.data));
             this.props.dataStore(res.data);

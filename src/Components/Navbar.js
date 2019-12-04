@@ -12,7 +12,7 @@ class Navbar extends React.Component {
       const config = {
          headers: { 'Authorization': "Bearer " + this.props.data.token }
       };
-      Axios.get('http://127.0.0.1:8000/api/logout', config)
+      Axios.get('https://katakeo.appspot.com/api/logout', config)
          .then(res => {
             localStorage.removeItem('data');
             this.props.dataStore({});
