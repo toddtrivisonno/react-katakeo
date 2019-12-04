@@ -2,9 +2,6 @@ import React from 'react';
 import './ChallengeMenu.css';
 
 class ChallengeMenu extends React.Component {
-   // constructor(props) {
-   //    super(props);
-   // }
 
    render() {
 
@@ -26,7 +23,6 @@ class ChallengeMenu extends React.Component {
                               id="passage"
                               name="quicksearch"
                               placeholder="ex: Ephesians 2:8-10"
-                           // value=""
                            />
                            <button id="Search">Search</button>
                         </div>
@@ -41,7 +37,6 @@ class ChallengeMenu extends React.Component {
       }
 
       function categoryList(fullContent) {
-
          return fullContent.map((category, index) => {
             return (
                <div className="card bg-info text-center border-0 rounded-0 challenge-menu" key={index} id="challengeMenu">
@@ -64,11 +59,11 @@ class ChallengeMenu extends React.Component {
          });
       }
       return (
-            <div
-               className={this.props.fullContent ? "accordion challenge-view overflow-auto" : "accordion"}
-               id="accordionExample">
-               {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
-            </div>
+         <div
+            className={this.props.fullContent ? "accordion challenge-view overflow-auto" : "accordion"}
+            id="accordionExample">
+            {this.props.fullContent ? categoryList(Object.keys(this.props.fullContent)) : (<h1>Loading</h1>)}
+         </div>
       )
    }
 }

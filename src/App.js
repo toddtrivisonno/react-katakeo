@@ -11,6 +11,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLock, faEnvelope, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import $ from 'jquery'
 
 library.add(faLock, faEnvelope, faUser, faArrowLeft)
 
@@ -84,10 +85,13 @@ export default class App extends React.Component {
 
   checkFail(failStatus) {
     this.setState({ fail: failStatus })
-    // this.setState({ winModal: !this.state.winModal })
   }
 
   componentDidMount() {
+    $('[data-toggle="popover"]').popover();
+    $('.popover-dismiss').popover({
+      trigger: 'focus'
+    })
     if (!localStorage.getItem('fullContent')) {
       Axios.get('http://127.0.0.1:8000/api/getFullContent')
         .then(res => {
@@ -98,15 +102,11 @@ export default class App extends React.Component {
     else {
       this.setState({ fullContent: JSON.parse(localStorage.getItem('fullContent')) });
     }
-
   }
 
   render() {
-    console.log('app.js: ', this.state.fail)
-    console.log('app.js: ', this.state.winModal)
     return (
       <div>
-
         {this.state.play ? (
           this.state.fullContent ?
             <>
@@ -140,13 +140,12 @@ export default class App extends React.Component {
                 checkFail={this.checkFail}
                 nullSelectedChallenge={this.nullSelectedChallenge}
               />
-
             </>
             : null
         ) : (
             <>
               <h1
-                className="display-4 text-center pt-4 mt-5"
+                className="display-4 text-center pt-4 mt-3"
                 id="title"
               >
                 KATAKEO
@@ -168,12 +167,13 @@ export default class App extends React.Component {
                           className="d-block btn btn-lg" 
                           data-container="body" 
                           data-toggle="popover" 
+                          data-trigger="focus"
                           data-placement="top" 
                           data-content='Katakeo comes from the Greek word for “instruction.”
 
                           The basis of Katakeo is Martin Luther’s Small Catechism, an instruction booklet written to assist parents in teaching their households the core teachings of the Bible and Christian faith.
                           
-                          Katekeo is a tool to assist and encourage Christians in learning and memorizing these teachings!'
+                          Katekeo is a tool to assist and encourage those learning and memorizing these teachings.'
                         >
                             What is Katakeo?
                         </h5>

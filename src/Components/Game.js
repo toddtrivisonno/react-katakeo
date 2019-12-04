@@ -58,8 +58,8 @@ class Game extends React.Component {
          }
       }
    }
-   buildingState() {
 
+   buildingState() {
       let petition = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.petition;
       let statement = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.statement;
       let answer = this.props.fullContent[this.props.categoryName][this.props.selectedChallenge].content.answer;
@@ -221,6 +221,7 @@ class Game extends React.Component {
          if (this.state.removedPetitionWords.includes(i)) {
             printRedactedPetition.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handlePetitionChange}
                   value={this.state.userSelectedWordsPetition[i]}
@@ -253,6 +254,7 @@ class Game extends React.Component {
          if (this.state.removedStatementWords.includes(i)) {
             printRedactedStatement.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleStatementChange}
                   defaultValue="________"
@@ -284,6 +286,7 @@ class Game extends React.Component {
          if (this.state.removedAnswerWords.includes(i)) {
             printRedactedAnswer.push(
                <select
+                  key={i}
                   className="form-control form-control-sm p-0 mr-1 d-inline w-auto"
                   onChange={this.handleAnswerChange}
                   value={this.state.userSelectedWordsAnswer[i]}

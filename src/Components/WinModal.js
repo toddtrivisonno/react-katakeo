@@ -1,6 +1,5 @@
 
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class WinModal extends React.Component {
    constructor(props) {
@@ -28,8 +27,6 @@ class WinModal extends React.Component {
    }
 
    render() {
-      console.log('winmodal.js fail means true: ', this.props.failState)
-      console.log('winmodal.js show the modal: ', this.props.checkWin)
       return (
          <>
             {!this.props.failState ? (
@@ -40,7 +37,9 @@ class WinModal extends React.Component {
                   <div className="modal-dialog modal-dialog-centered" >
                      <div className="modal-content">
                         <div className="modal-header">
-                           <h5 className="modal-title" id="winModalTitle">Challenge Complete</h5>
+                           <h5 className="modal-title" id="winModalTitle">
+                              Challenge Complete
+                           </h5>
                            <button
                               type="button"
                               className="close"

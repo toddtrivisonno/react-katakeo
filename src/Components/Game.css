@@ -19,27 +19,3 @@
 @keyframes slideForwards {
    100% { left: 0; }
 }
-
-
-
-
-/* #emptyGame {
-   height: 100vh;
-   width: 100vw;
-   position: absolute;
-   z-index: -1;
-   top: 0;
-   left: 100vw;
-   overflow: auto;
-
-   -webkit-animation: slideBackwards 0.5s reverse;
-   animation: slideBackwards 0.5s reverse;
-}
-
-@-webkit-keyframes slideBackwards {
-   100% { left: 0; }
-}
-
-@keyframes slideBackwards {
-   100% { left: 0; }
-} */
