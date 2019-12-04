@@ -28,6 +28,7 @@ export default class App extends React.Component {
       register: false,
       data: {},
       play: false,
+      fail: false,
       modal: false,
       winModal: false,
       selectedChallenge: '',
@@ -38,7 +39,8 @@ export default class App extends React.Component {
     this.dataStore = this.dataStore.bind(this);
     this.playSelected = this.playSelected.bind(this);
     this.setModal = this.setModal.bind(this);
-    this.winLoseModal = this.winLoseModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.checkFail = this.checkFail.bind(this);
     this.getSelectedChallenge = this.getSelectedChallenge.bind(this);
     this.nullSelectedChallenge = this.nullSelectedChallenge.bind(this);
   }
@@ -79,8 +81,13 @@ export default class App extends React.Component {
     })
   }
 
-  winLoseModal() {
-    this.setState({ winModal: !this.state.winModal })
+  showModal(modalStatus) {
+    this.setState({ winModal: modalStatus })
+  }
+  
+  checkFail(failStatus) {
+    this.setState({ fail: failStatus })
+    // this.setState({ winModal: !this.state.winModal })
   }
 
   componentDidMount() {
@@ -98,7 +105,8 @@ export default class App extends React.Component {
   }
 
   render() {
-
+    console.log('app.js: ',this.state.fail)
+    console.log('app.js: ',this.state.winModal)
     return (
       <div>
 
@@ -111,7 +119,7 @@ export default class App extends React.Component {
                 dataStore={this.dataStore}
                 data={this.state.data}
                 fullContent={this.state.fullContent}
-                showModal={this.setModal}
+                setModal={this.setModal}
                 returnHome={this.playSelected}
               />
               <h1 className="text-center text-white m-0 bg-secondary challenge-menu">Select a Challenge</h1>
@@ -124,12 +132,15 @@ export default class App extends React.Component {
                 categoryName={this.state.categoryName}
                 selectedChallenge={this.state.selectedChallenge}
                 fullContent={this.state.fullContent}
-                checkWin={this.winLoseModal}
+                showModal={this.showModal}
+                checkFail={this.checkFail}
                 nullSelectedChallenge={this.nullSelectedChallenge}
               />
               <WinModal
                 checkWin={this.state.winModal}
-                resetModal={this.winLoseModal}
+                resetModal={this.showModal}
+                failState={this.state.fail}
+                checkFail={this.checkFail}
                 nullSelectedChallenge={this.nullSelectedChallenge}
               />
 
@@ -143,10 +154,10 @@ export default class App extends React.Component {
               >
                 KATAKEO
               </h1>
-              <h6 className="text-center">A simple way to teach the household.</h6>
+              <h6 className="text-center mb-4 pb-5">A simple way to teach the household.</h6>
               <div className="container">
-                <div className="row vh-100">
-                  <div className="col my-auto">
+                <div className="row vh-100 pt-5">
+                  <div className="col my-auto p-0">
                     {this.state.modal ?
                       <Modal
                         visibility={this.state.modal}
@@ -158,15 +169,17 @@ export default class App extends React.Component {
                       <>
                         <button
                           type="button"
+                          id="title-button-top"
                           onClick={this.setModal}
-                          className="btn btn-info btn-lg d-block m-5 mx-auto"
+                          className="btn btn-info btn-lg btn-block d-block m-3 p-2 mx-auto rounded-0 font-weight-bold"
                         >
                           Sign In - Register
                         </button>
                         <button
                           type="button"
+                          id="title-button-bottom"
                           onClick={this.playSelected}
-                          className="btn btn-info btn-lg d-block m-5 mx-auto"
+                          className="btn btn-info btn-lg btn-block d-block p-2 mx-auto rounded-0 font-weight-bold"
                         >
                           Continue as Guest
                         </button>

@@ -23,7 +23,7 @@ class Navbar extends React.Component {
 
    signIn() {
       this.props.returnHome();
-      this.props.showModal()
+      this.props.setModal()
    }
 
    render() {
@@ -35,11 +35,11 @@ class Navbar extends React.Component {
                this.props.data.token
                   ? (
                      <>
-                        <p>
+                        <h5 className="mb-0 mr-2 ml-auto">
                            {this.props.data
                               ? this.props.data.user.name.split(" ", 1)
                               : ""}
-                        </p>
+                        </h5>
                         <button
                            className="btn btn-secondary"
                            onClick={this.logout}

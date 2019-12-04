@@ -158,12 +158,15 @@ class Game extends React.Component {
          Object.keys(this.state.userSelectedWordsPetition).length +
          Object.keys(this.state.userSelectedWordsStatement).length +
          Object.keys(this.state.userSelectedWordsAnswer).length;
+
       if (check !== userCheck) {
          fail = true;
       }
 
       if (fail) {
-         return 'fail';
+         this.props.checkFail(fail);
+         this.props.showModal(true);
+         return;
       }
       else {
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsPetition).length; i++) {
@@ -173,7 +176,9 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsStatement).length; i++) {
             let keysStatement = Object.keys(this.state.userSelectedWordsStatement)
@@ -182,7 +187,9 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          for (let i = 0; i < Object.keys(this.state.userSelectedWordsAnswer).length; i++) {
             let keysAnswer = Object.keys(this.state.userSelectedWordsAnswer)
@@ -191,13 +198,17 @@ class Game extends React.Component {
             }
          }
          if (fail) {
-            return 'fail';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
          else {
-            this.props.checkWin()
-            return 'winner';
+            this.props.checkFail(fail);
+            this.props.showModal(true);
+            return;
          }
       }
+
    }
 
    splitPetition() {
@@ -218,9 +229,10 @@ class Game extends React.Component {
                >
                   <option
                      value='________'
-                     disabled>
+                     disabled
+                  >
                      ________
-                           </option>
+                  </option>
                   {dropdownWord}
                </select>
             )
