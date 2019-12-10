@@ -93,7 +93,7 @@ export default class App extends React.Component {
       trigger: 'focus'
     })
     if (!localStorage.getItem('fullContent')) {
-      Axios.get('http://127.0.0.1:8000/api/getFullContent')
+      Axios.get('https://katakeo.appspot.com/api/getFullContent')
         .then(res => {
           localStorage.setItem('fullContent', JSON.stringify(res.data.fullContent));
           this.setState({ fullContent: res.data.fullContent });
